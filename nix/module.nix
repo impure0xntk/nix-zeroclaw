@@ -59,6 +59,12 @@ in
       description = "Directory for ZeroClaw workspace and configuration";
     };
 
+    additionalPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = with pkgs; [ curl gitMinimal];
+      description = "Additional packages to install alongside ZeroClaw";
+    };
+
     # Main configuration as Nix attrset (converted to TOML in preStart)
     settings = lib.mkOption {
       type = settingsFormat.type;
@@ -136,6 +142,7 @@ in
       after = [ "network-online.target" ] ++ cfg.afterServices;
       wants = [ "network-online.target" ] ++ cfg.afterServices;
       requires = cfg.afterServices;
+      path = cfg.additionalPackages;
 
       environment = {
         ZEROCLAW_CONFIG = "${cfg.dataDir}/config.toml";

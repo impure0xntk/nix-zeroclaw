@@ -35,6 +35,9 @@ pkgs.testers.nixosTest {
                 "/run/keys/matrix-access-token" = "channels_config.matrix.access_token";
                 "/run/keys/matrix-room-id" = "channels_config.matrix.room_id";
               };
+              # Test additional packages (curl and git)
+              additionalPackages = with pkgs; [ curl gitMinimal ];
+
 
               # Test resource limits
               resources = {
@@ -172,6 +175,8 @@ pkgs.testers.nixosTest {
 
     # Verify that environment variables from file are available to service
     machine.succeed("systemctl cat zeroclaw.service | grep -q 'EnvironmentFile=/etc/zeroclaw/env'")
+
+    machine.succeed("systemctl cat zeroclaw.service | grep -q 'Environment=\"PATH=.*curl'")
 
     # ==============================
     # Test User and Group
