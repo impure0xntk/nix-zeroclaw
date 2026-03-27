@@ -199,6 +199,8 @@ in
         ) (lib.mapAttrsToList (file: path: { inherit file path; }) cfg.secretFiles);
       in
         ''
+          rm  -f ${cfg.dataDir}/config.toml
+
           mkdir -p ${cfg.dataDir}/workspace
 
           # Generate config with placeholders for all secrets
