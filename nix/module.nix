@@ -115,6 +115,8 @@ in
       default = [ ];
       description = "List of systemd services that zeroclaw depends on and must start first. Added to service 'after' and 'requires' directives. Use for dependencies like sops-nix that must complete before zeroclaw starts.";
     };
+
+    autoStartChannel = lib.mkEnableOption "Whether to enable the auto-start channel for ZeroClaw.";
   };
 
   config = lib.mkIf cfg.enable {
@@ -209,6 +211,9 @@ in
 
           chmod 400 ${cfg.dataDir}/config.toml
         '';
+      postStart = lib.optionalString cfg.autoStartChannel ''
+        ${cfg.package}/bin/zeroclaw channel doctor && ${cfg.package}/bin/zeroclaw channel start
+      '';
     };
 
 
