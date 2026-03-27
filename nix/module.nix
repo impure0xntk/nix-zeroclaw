@@ -1,7 +1,5 @@
 # ZeroClaw NixOS Module
 # Simplified: configuration is provided as Nix attrset via settings option
-flake:
-
 { config, lib, pkgs, ... }:
 
 let
