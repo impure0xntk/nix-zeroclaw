@@ -1,4 +1,4 @@
-# ZeroClaw
+# nix-zeroclaw
 
 A NixOS module for managing the ZeroClaw service.
 
