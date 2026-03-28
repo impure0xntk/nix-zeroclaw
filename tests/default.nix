@@ -51,8 +51,6 @@ pkgs.testers.nixosTest {
                 CUSTOM_VAR = "testvalue";
               };
 
-              autoStartChannel = false; # For test: cannot start channel with invalid token.
-
               # Comprehensive settings
               settings = {
                 default_provider = "anthropic";
